@@ -2,18 +2,14 @@
 
 namespace pool {
     namespace detail {
-        PoolImpl::PoolImpl() :
-            water_(0), parent_(nullptr) {
-            parent_ = this;
-        }
-        PoolImpl::PoolImpl(double water) :
+        PoolImpl::PoolImpl(uint64_t water) :
             water_(water), parent_(nullptr) {
             parent_ = this;
         }
 
         double PoolImpl::getWater() {
             PoolImpl* agent = getAgent();
-            return (1. * agent->water_) / agent->count_of_members_;
+            return static_cast<double>(agent->water_) / static_cast<double>(agent->count_of_members_);
         }
 
         void PoolImpl::tryToConnect(PoolImpl& pool) {
@@ -41,7 +37,7 @@ namespace pool {
             return parent_;
         }
 
-        void PoolImpl::addWater(double water) {
+        void PoolImpl::addWater(uint64_t water) {
             PoolImpl* agent = getAgent();
             agent->water_ += water;
         }
@@ -55,10 +51,10 @@ namespace pool {
         poolImpl_.tryToConnect(pool.poolImpl_);
     }
 
-    void Pool::add(double water) {
+    void Pool::add(uint64_t water) {
         poolImpl_.addWater(water);
     }
 
-    Pool::Pool(double water) : poolImpl_(water) {
+    Pool::Pool(uint64_t water) : poolImpl_(water) {
     }
 } // namespace pool

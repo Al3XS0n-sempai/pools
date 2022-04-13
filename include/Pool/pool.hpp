@@ -6,15 +6,13 @@ namespace pool {
     namespace detail {
         class PoolImpl {
         public:
-            PoolImpl();
-
-            explicit PoolImpl(double water);
+            explicit PoolImpl(uint64_t water);
 
             double getWater();
 
             void tryToConnect(PoolImpl& pool);
 
-            void addWater(double water);
+            void addWater(uint64_t water);
 
             PoolImpl* getAgent();
 
@@ -22,21 +20,19 @@ namespace pool {
             PoolImpl* parent_;
             uint32_t depth_of_tree_{1};
             uint32_t count_of_members_{1};
-            double water_;
+            uint64_t water_;
         };
     }
 
     class Pool {
     public:
-        Pool() = default;
-
-        explicit Pool(double water);
+        explicit Pool(uint64_t water);
 
         double measure();
 
         void connect(Pool& pool);
 
-        void add(double water);
+        void add(uint64_t water);
 
     private:
         detail::PoolImpl poolImpl_;
